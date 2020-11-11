@@ -1,0 +1,13 @@
+let Web3 = require('web3')
+let web3 = new Web3()
+web3.setProvider('http://localhost:8501')
+
+// After deploy the contract, you need to change the abi and address value.
+let abi = [{"constant":false,"inputs":[{"name":"sp_address","type":"string"},{"name":"token","type":"string"}],"name":"requestService","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"hash_EncryptedS","type":"bytes32"},{"name":"token","type":"string"}],"name":"publicHashSP","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"client_address","type":"string"},{"name":"publicKey","type":"string"}],"name":"setPublicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"token","type":"string"}],"name":"get_encrypted_key","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"token","type":"string"}],"name":"get_sp_address","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"token","type":"string"}],"name":"get_hash_encrypted_s","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"encrypted_key","type":"string"},{"name":"token","type":"string"}],"name":"publicKey","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"client_address","type":"string"}],"name":"get_publicKey","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"hash_EncryptedS","type":"bytes32"},{"name":"token","type":"string"}],"name":"publicHashClient","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"ret","type":"string"}],"name":"RequestService","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"ret","type":"string"}],"name":"SP_Public_HashOfEncryptedS","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"ret","type":"string"}],"name":"Client_Public_HashOfEncryptedS","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"ret","type":"string"}],"name":"SP_Public_EncryptedKey","type":"event"}]
+
+let address = '0xD0bF38f7a457c91Dc8F48E16897bAE22F5169D86'
+
+let contractInstance = new web3.eth.Contract(abi, address)
+
+module.exports = contractInstance
+
