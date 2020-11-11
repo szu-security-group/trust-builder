@@ -26,6 +26,7 @@ sudo apt-get install ethereum
 ### Solc
 
 To compile the smart contract(solidity), you also need to install the solc module. The command is as follows.
+
 `npm install --save solc@0.4.25`
 
 ### Javascript module
