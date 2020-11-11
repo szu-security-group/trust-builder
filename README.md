@@ -27,7 +27,9 @@ sudo apt-get install ethereum
 
 To compile the smart contract(solidity), you also need to install the solc module. The command is as follows.
 
-`npm install --save solc@0.4.25`
+```
+npm install --save solc@0.4.25
+```
 
 ### Javascript module
 
@@ -63,7 +65,9 @@ geth --datadir node2/ account new
 ```
 
 For each node, we recommend saving the password in a file. This will simplify some of the processes later (such as unlocking your account).
-`echo 'password' > password.txt`
+```
+echo 'password' > password.txt
+```
 
 ### Create genesis file
 
