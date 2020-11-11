@@ -1,18 +1,17 @@
 pragma solidity ^0.4.24;
 
 contract ServiceInterface{
-    // 正常服务流程
     
-    // 1. 客户端请求服务S，返回服务id
+    // 1. request service: need service provider's address and service id(token)
     function requestService(string sp_address, string token) public;
     
-    // 2. 服务提供商向客户C发布加密S的Hash
+    // 2. service provider promise the service by publishing the hash value
     function publicHashSP(bytes32 hash_EncryptedS, string token) public;
     
-    // 3. 客户端链下收到双重加密服务S后, 解密后发布加密S的Hash验证
+    // 3. client confirm the service by confirming the hash value on-chain
     function publicHashClient(bytes32 hash_EncryptedS, string token) public;
     
-    // 4. 服务提供商发布 非对称加密key
+    // 4. service provider send the encryption key
     function publicKey(string encrypted_key, string token) public;
     
 
@@ -40,9 +39,9 @@ contract Service is ServiceInterface{
     struct ServiceRequest{
         // 1. sp address
         string sp_address;  
-        // 2. SP提交的Hash(Encryptd(S))
+        // 2. Hash(Encryptd(S))
         bytes32 hash_encryptedS;
-        // 3. 加密的 key 
+        // 3. encryption key 
         string encrypted_key;
     }
     
@@ -51,19 +50,16 @@ contract Service is ServiceInterface{
     mapping(string => string) address_publicKey;
     
     
-    // 部署合约
     constructor() public {
     }
     
     
-    // 1. 客户端请求服务S，指定S名称
     function requestService(string sp_address, string token) public{
         serviceRequest[token].sp_address = sp_address;
         
         emit RequestService('Request Service');
     }
     
-    // 2. 服务提供商发布加密S的Hash
     function publicHashSP(bytes32 hash_EncryptedS, string token) public{
         
         serviceRequest[token].hash_encryptedS = hash_EncryptedS;
@@ -75,7 +71,6 @@ contract Service is ServiceInterface{
     }
     
     
-    // 3. 客户端链下收到加密服务S后, 发布加密S的Hash验证
     function publicHashClient(bytes32 hash_EncryptedS, string token) public{
         string memory ret = '';
         if(serviceRequest[token].hash_encryptedS == hash_EncryptedS){
@@ -87,7 +82,6 @@ contract Service is ServiceInterface{
         emit Client_Public_HashOfEncryptedS(ret);
     }
     
-    // 4. 服务提供商发布客户公钥加密的 key, 还有hash_key 
     function publicKey(string encrypted_key, string token) public{
         
         serviceRequest[token].encrypted_key = encrypted_key;
